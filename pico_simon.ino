@@ -6,6 +6,7 @@
 #include "Game-Settings.h"
 #include "LED-Functions.h"
 #include "Game-Memory.h"
+#include "Game-Reaction.h"
 
 ///////////////////// Setup ////////////////////////
 void setup()
@@ -45,32 +46,48 @@ void setup()
 
 void loop()
 {
+
   // Let's Get It Started
   switch (GameState)
   {
   case 0:
-    // GameState = GameType;
-    displayMessage(" Carrega no verde!! ");
-
-    Serial.println(digitalRead(GRN_BTN));
-    Serial.println(GameState);
-
-    // Flash the LEDs in sequence
-    for (int i = RED_LED; i >= BLU_LED; i--)
+    GameState = GameType;
+    displayMessage(" Azul muda jogo ");
+    delay(3000);
+    displayMessage(" Verde para jogar! ");
+    delay(3000);
+    while (digitalRead(GRN_BTN) == HIGH)
     {
-      digitalWrite(i, HIGH);
-      delay(100);
-      digitalWrite(i, LOW);
-    }
+      // Flash the LEDs in sequence
+      for (int i = RED_LED; i >= BLU_LED; i--)
+      {
+        digitalWrite(i, HIGH);
+        delay(100);
+        digitalWrite(i, LOW);
+      }
 
-    // Start game with Green button
-    if (digitalRead(GRN_BTN) == LOW)
-    {
-      GameState = 1;
+      // Change game with Blue button
+      if (digitalRead(BLU_BTN) == LOW)
+      {
+        GameState++;
+        if (GameState > NUMGAME(GameTitle))
+        {
+          GameState = 1;
+        }
+      }
+      displayMessage(GameTitle[GameState - 1]);
     }
     break;
   case 1: // Memory game
     MemoryGame();
+    break;
+  case 2: // Reaction game
+    ReactionGame();
+    break;
+  default:
+    displayMessage("TBD");
+    GameState = 0;
+    delay(3000);
     break;
   } // end GameState while
 }

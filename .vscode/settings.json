@@ -1,5 +1,11 @@
 {
   "files.associations": {
-    "*.io": "c"
+    "*.io": "c",
+    "*.tcc": "cpp",
+    "deque": "cpp",
+    "string": "cpp",
+    "unordered_map": "cpp",
+    "vector": "cpp",
+    "system_error": "cpp"
   }
 }

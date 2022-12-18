@@ -51,7 +51,11 @@ int GameLevel = 0;
 unsigned int GameRand = 777;
 unsigned long ActiveTime; // Global Game Timer
 
+String GameTitle[] = {"Memoria", "Reage", "Torneio", "Musica"};
 bool ButtonStatus[7] = {false, false, false, false};
+
+// number of items in an array
+#define NUMGAME(arg) ((unsigned int)(sizeof(arg) / sizeof(arg[0])))
 
 // Define the order of the pins in the display so that they are ordered according to the universal convention [OPTIONAL]
 byte pin_leds[4] = {YEL_LED, GRN_LED, RED_LED, BLU_LED};
@@ -76,6 +80,7 @@ void displayMessage(int text, bool clearDisplay = true)
     display.clearDisplay();
     display.setCursor(0, 0);
   }
+
   display.setTextSize(2); // Draw 2X-scale text
   display.setTextColor(SSD1306_WHITE);
 
@@ -95,6 +100,15 @@ void displayMessage(String text, bool clearDisplay = true)
 
   display.print(text);
   display.display(); // Show text
+}
+
+void drawProgressbar(int x, int y, int width, int height, int progress)
+{
+  progress = progress > 100 ? 100 : progress; // set the progress value to 100
+  progress = progress < 0 ? 0 : progress;     // start the counting to 0-100
+  float bar = ((float)(width - 1) / 100) * progress;
+  display.drawRect(x, y, width, height, WHITE);
+  display.fillRect(x + 2, y + 2, bar, height - 4, WHITE); // initailize the graphics fillRect(int x, int y, int width, int height)
 }
 
 // Set Default Values
