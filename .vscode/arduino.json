@@ -1,0 +1,5 @@
+{
+    "port": "/dev/tty.usbmodem1101",
+    "board": "arduino:mbed_rp2040:pico",
+    "sketch": "pico_simon.ino"
+}
