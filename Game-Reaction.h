@@ -63,68 +63,31 @@ void ReactionGame()
     {
       GameOver = true;
       displayMessage(F(" OHH :( "));
-      tone(PIEZO, BAD_SOUND, 500);
+      if (GameSound)
+      {
+        tone(PIEZO, BAD_SOUND, 500);
+      }
     }
     if (a == pin_leds[CurrColor])
     {
       GameScore++;
-      displayMessage(F(" BOA!! "));
+      interval = interval - 100;
     }
     else if (a == 0)
     {
       GameOver = true;
       displayMessage(F(" PERDESTE! "));
-      tone(PIEZO, BAD_SOUND, 500);
+      if (GameSound)
+      {
+        tone(PIEZO, BAD_SOUND, 500);
+      }
     }
 
-    // Change Level
-    switch (GameScore)
-    {
-    case 5:
-      interval = interval - 100;
-      displayMessage(F(" !SUBAA! "));
-      break;
-    case 10:
-      interval = interval - 100;
-
-      displayMessage(F("  !OUTRO NIVEL!  "));
-      break;
-    case 20:
-      interval = interval - 50;
-      displayMessage(F(" !SUBAA! "));
-      break;
-    case 30:
-      interval = interval - 50;
-
-      displayMessage(F("BOA!"));
-      break;
-    case 50:
-      interval = interval - 50;
-
-      displayMessage(F("  IMPRESSIONANTE!  "));
-      break;
-    case 100:
-      interval = interval - 50;
-      displayMessage(F("  !100 CLIQUES!  "));
-
-      break;
-    case 200:
-      interval = interval - 50;
-
-      displayMessage(F("CALMA!!!"));
-      break;
-    case 500:
-      interval = interval - 50;
-
-      displayMessage(F(" LOUCURA!!! "));
-      break;
-    }
-
+    delay(1000);
     //  Show Current Score
     displayMessage(F("RESULTADO: "));
     displayMessage(GameScore, false);
     delay(interval);
-
   } // end while Game
 
   // Show Final Score

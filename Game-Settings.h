@@ -37,6 +37,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 byte GameState = 0;
 byte GameType = 1;
+bool GameSound = true;
 int firstPlay = true;
 int GameLevel = 0;
 unsigned int GameRand = 777;

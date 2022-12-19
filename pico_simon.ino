@@ -40,7 +40,7 @@ void setup()
       ; // Don't proceed, loop forever
   }
 
-  displayMessage("Simon Says!");
+  displayMessage("Simão diz");
   delay(2000);
 }
 
@@ -58,9 +58,11 @@ void loop()
     if (firstPlay)
     {
       firstPlay = false;
-      displayMessage("Azul muda jogo");
+      displayMessage("Azul: muda jogo");
       delay(2000);
-      displayMessage("Verde para jogar");
+      displayMessage("Verde: jogar");
+      delay(2000);
+      displayMessage("Vermelho: som on/off ");
       delay(2000);
     }
 
@@ -72,6 +74,21 @@ void loop()
         digitalWrite(i, HIGH);
         delay(100);
         digitalWrite(i, LOW);
+      }
+
+      // Sound OFF/ON
+      if (digitalRead(RED_BTN) == LOW)
+      {
+        GameSound = !GameSound;
+        if (GameSound)
+        {
+          displayMessage(F("Som ON"));
+        }
+        else
+        {
+          displayMessage(F("Som OFF"));
+        }
+        delay(2000);
       }
 
       // Change game with Blue button

@@ -58,8 +58,10 @@ void PlayColor(byte LED_color)
     note = GRN_SOUND;
     break;
   }
-
-  tone(PIEZO, note, 100);
+  if (GameSound)
+  {
+    tone(PIEZO, note, 100);
+  }
 }
 
 int getPressedButton()

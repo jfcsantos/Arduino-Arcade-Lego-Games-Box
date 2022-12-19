@@ -67,7 +67,11 @@ void MemoryGame()
       if ((a != 0) && (a != pin_leds[CurrColor]))
       {
         GameOver = true;
-        tone(PIEZO, BAD_SOUND, 500);
+        if (GameSound)
+        {
+
+          tone(PIEZO, BAD_SOUND, 500);
+        }
         displayMessage(F(" OHH :( "));
       }
 

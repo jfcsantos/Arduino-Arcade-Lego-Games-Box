@@ -27,8 +27,10 @@ void TournamentGame()
     delay(random(1000, 3000)); // random delay
 
     displayMessage(F(" VAI!! "));
-    tone(PIEZO, GRN_SOUND, 500);
-
+    if (GameSound)
+    {
+      tone(PIEZO, GRN_SOUND, 500);
+    }
     int a = 0;
     currentMillis = previousMillis = millis();
 
@@ -53,23 +55,24 @@ void TournamentGame()
 
     // Level Result
     displayMessage(F("Vencedor: "));
-    delay(2000);
 
     switch (a)
     {
     case YEL_LED:
-      displayMessage(F("Amarelo"));
+      displayMessage(F("Amarelo"), false);
       break;
     case GRN_LED:
-      displayMessage(F("Verde"));
+      displayMessage(F("Verde"), false);
       break;
     case RED_LED:
-      displayMessage(F("Vermelho"));
+      displayMessage(F("Vermelho"), false);
       break;
     case BLU_LED:
-      displayMessage(F("Azul"));
+      displayMessage(F("Azul"), false);
       break;
     }
+    delay(2000);
+
     SetButtonLED(a);
     GameRate[GetColorPin(a)]++;
     PowerOnButtonLED();
