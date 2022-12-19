@@ -5,7 +5,7 @@ void MelodyGame()
 
   GameType = 4;
   // Welcome
-  displayMessage(F("  Musica   "));
+  displayMessage(F("Musica"));
   PowerOffButtonLED();
   delay(1000);
   while (!GameOver) // BLACK button press
@@ -32,7 +32,7 @@ void MelodyGame()
     PowerOffButtonLED();
   }
 
-  displayMessage(F("Adeus ;)"));
+  displayMessage(F("Adeus!"));
   delay(3000);
   CloseGame();
   return;

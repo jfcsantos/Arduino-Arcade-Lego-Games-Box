@@ -40,7 +40,7 @@ void setup()
       ; // Don't proceed, loop forever
   }
 
-  displayMessage(" Boica diz!! ");
+  displayMessage("Simon Says!");
   delay(2000);
 }
 
@@ -54,10 +54,16 @@ void loop()
   {
   case 0:
     GameState = GameType;
-    displayMessage(" Azul muda jogo ");
-    delay(2000);
-    displayMessage(" Verde para jogar! ");
-    delay(2000);
+
+    if (firstPlay)
+    {
+      firstPlay = false;
+      displayMessage("Azul muda jogo");
+      delay(2000);
+      displayMessage("Verde para jogar");
+      delay(2000);
+    }
+
     while (digitalRead(GRN_BTN) == HIGH)
     {
       // Flash the LEDs in sequence
@@ -93,7 +99,6 @@ void loop()
     MelodyGame();
     break;
   default:
-    displayMessage("TBD");
     GameState = 0;
     delay(3000);
     break;

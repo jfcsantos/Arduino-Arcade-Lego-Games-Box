@@ -41,6 +41,7 @@ void PlayColor(byte LED_color)
   SetButtonLED(LED_color);
 
   // BUZZ sound
+  int note = 0;
 
   switch (LED_color)
   {

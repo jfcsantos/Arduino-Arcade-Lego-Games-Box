@@ -3,6 +3,10 @@ void TournamentGame()
   GameType = 3;
   GameLevel = 0;
   int GameRate[4] = {0, 0, 0, 0};
+  int interval = 10000;
+  unsigned long previousMillis = 0;
+  unsigned long currentMillis = 0;
+
   while (GameLevel < 5)
   {
     GameLevel++;
@@ -23,17 +27,21 @@ void TournamentGame()
     delay(random(1000, 3000)); // random delay
 
     displayMessage(F(" VAI!! "));
+    tone(PIEZO, GRN_SOUND, 500);
 
     int a = 0;
-    while (a == 0)
-    {
-      a = getPressedButton();
+    currentMillis = previousMillis = millis();
 
-      if (a == -1)
-      {
-        CloseGame();
-        return;
-      }
+    while (a == 0 && (currentMillis - previousMillis) <= interval)
+    {
+      currentMillis = millis();
+      a = getPressedButton();
+    }
+
+    if ((currentMillis - previousMillis) > interval)
+    {
+      CloseGame();
+      return;
     }
 
     // Play Color if Press Button
@@ -85,7 +93,7 @@ void TournamentGame()
       status_leds[i] = true;
     }
   }
-  displayMessage(F("O campeao: "));
+  displayMessage(F("O campeao!"));
   PowerOnButtonLED();
   delay(3000);
   PowerOffButtonLED();

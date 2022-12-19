@@ -10,10 +10,9 @@ void MemoryGame()
 
   while (!GameOver)
   {
-    // ClearButtonStatus();
-    // PowerOffButtonLED();
+    PowerOffButtonLED();
     GameLevel++;
-    displayMessage(" Nivel #");
+    displayMessage("Nivel #");
     displayMessage(GameLevel, false);
     delay(2000);
 
@@ -37,7 +36,7 @@ void MemoryGame()
     }
 
     // Show Check Screen
-    displayMessage(" Agora repete! ");
+    displayMessage("Agora repete! ");
 
     // Check Melody
     randomSeed(GameRand);
@@ -62,7 +61,7 @@ void MemoryGame()
 
       if ((a == pin_leds[CurrColor]) && (i == GameLevel - 1))
       {
-        displayMessage(F("    BOA!!    "));
+        displayMessage(F(" BOA!! "));
       }
 
       if ((a != 0) && (a != pin_leds[CurrColor]))
@@ -84,9 +83,9 @@ void MemoryGame()
   }
 
   // Show Final Score
-  displayMessage(F("   ACABOU   "));
+  displayMessage(F(" ACABOU "));
 
-  displayMessage(F("RECORD: "));
+  displayMessage(F("Resultado: "));
   displayMessage(GameLevel, false);
 
   delay(3000);

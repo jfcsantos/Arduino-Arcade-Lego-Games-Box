@@ -8,16 +8,6 @@
 #define OLED_RESET -1       // Reset pin # (or -1 if sharing Arduino reset pin)
 #define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3C
 
-// Define game constants and variables
-
-const int MAX_LEVEL = 100;
-int sequence[MAX_LEVEL];
-int sound[MAX_LEVEL];
-int player_sequence[MAX_LEVEL];
-int level = 1;
-int note = 0;
-int velocity = 500;
-
 // Piezo Sounds
 
 #define GRN_SOUND 262
@@ -47,12 +37,11 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 byte GameState = 0;
 byte GameType = 1;
+int firstPlay = true;
 int GameLevel = 0;
 unsigned int GameRand = 777;
-unsigned long ActiveTime; // Global Game Timer
 
 String GameTitle[] = {"Memoria", "Reage", "Torneio", "Musica"};
-bool ButtonStatus[7] = {false, false, false, false};
 
 // number of items in an array
 #define NUMGAME(arg) ((unsigned int)(sizeof(arg) / sizeof(arg[0])))
