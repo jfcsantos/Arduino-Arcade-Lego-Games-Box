@@ -7,6 +7,8 @@
 #include "LED-Functions.h"
 #include "Game-Memory.h"
 #include "Game-Reaction.h"
+#include "Game-Melody.h"
+#include "Game-Tournament.h"
 
 ///////////////////// Setup ////////////////////////
 void setup()
@@ -53,9 +55,9 @@ void loop()
   case 0:
     GameState = GameType;
     displayMessage(" Azul muda jogo ");
-    delay(3000);
+    delay(2000);
     displayMessage(" Verde para jogar! ");
-    delay(3000);
+    delay(2000);
     while (digitalRead(GRN_BTN) == HIGH)
     {
       // Flash the LEDs in sequence
@@ -83,6 +85,12 @@ void loop()
     break;
   case 2: // Reaction game
     ReactionGame();
+    break;
+  case 3: // Tournament game
+    TournamentGame();
+    break;
+  case 4: // Music game
+    MelodyGame();
     break;
   default:
     displayMessage("TBD");
