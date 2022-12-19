@@ -62,7 +62,7 @@ void ReactionGame()
     if ((a != 0) && (a != pin_leds[CurrColor]))
     {
       GameOver = true;
-      displayMessage(F(" OHH :( "));
+      displayMessage(F(" Ohh :( "));
       if (GameSound)
       {
         tone(PIEZO, BAD_SOUND, 500);
@@ -76,7 +76,7 @@ void ReactionGame()
     else if (a == 0)
     {
       GameOver = true;
-      displayMessage(F(" PERDESTE! "));
+      displayMessage(F(" Tenta outra vez! "));
       if (GameSound)
       {
         tone(PIEZO, BAD_SOUND, 500);
@@ -85,15 +85,13 @@ void ReactionGame()
 
     delay(1000);
     //  Show Current Score
-    displayMessage(F("RESULTADO: "));
+    displayMessage(F("Resultado: "));
     displayMessage(GameScore, false);
     delay(interval);
   } // end while Game
 
   // Show Final Score
-  displayMessage(F("ACABOU"));
-
-  displayMessage(F("RESULTADO FINAL:"));
+  displayMessage(F("Resultado final: "));
   displayMessage(GameScore, false);
 
   delay(3000);

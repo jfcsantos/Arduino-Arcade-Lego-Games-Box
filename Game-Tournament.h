@@ -3,7 +3,7 @@ void TournamentGame()
   GameType = 3;
   GameLevel = 0;
   int GameRate[4] = {0, 0, 0, 0};
-  int interval = 10000;
+  int interval = 5000;
   unsigned long previousMillis = 0;
   unsigned long currentMillis = 0;
 

@@ -68,28 +68,30 @@ void displayMessage(int text, bool clearDisplay = true)
   if (clearDisplay == true)
   {
     display.clearDisplay();
-    display.setCursor(0, 0);
   }
 
-  display.setTextSize(2); // Draw 2X-scale text
-  display.setTextColor(SSD1306_WHITE);
-
+  display.setCursor((SCREEN_WIDTH - 2) / 2, SCREEN_HEIGHT / 2 + 2);
   display.print(text);
   display.display(); // Show text
 }
 
 void displayMessage(String text, bool clearDisplay = true)
 {
+  int16_t x1;
+  int16_t y1;
+  uint16_t width;
+  uint16_t height;
+
+  display.getTextBounds(text, 0, 0, &x1, &y1, &width, &height);
+
   if (clearDisplay == true)
   {
     display.clearDisplay();
-    display.setCursor(0, 0);
+    display.setCursor((SCREEN_WIDTH - width) / 2, 0);
   }
-  display.setTextSize(2); // Draw 2X-scale text
-  display.setTextColor(SSD1306_WHITE);
 
-  display.print(text);
-  display.display(); // Show text
+  display.println(text); // text to display
+  display.display();     // Show text
 }
 
 void drawProgressbar(int x, int y, int width, int height, int progress)

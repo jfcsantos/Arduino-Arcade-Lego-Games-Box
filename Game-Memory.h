@@ -61,7 +61,7 @@ void MemoryGame()
 
       if ((a == pin_leds[CurrColor]) && (i == GameLevel - 1))
       {
-        displayMessage(F(" BOA!! "));
+        displayMessage(F(" Boa!! "));
       }
 
       if ((a != 0) && (a != pin_leds[CurrColor]))
@@ -72,7 +72,7 @@ void MemoryGame()
 
           tone(PIEZO, BAD_SOUND, 500);
         }
-        displayMessage(F(" OHH :( "));
+        displayMessage(F(" Ohh :( "));
       }
 
       // Clear Button Status
@@ -87,7 +87,7 @@ void MemoryGame()
   }
 
   // Show Final Score
-  displayMessage(F(" ACABOU "));
+  displayMessage(F(" Fim "));
 
   displayMessage(F("Resultado: "));
   displayMessage(GameLevel, false);

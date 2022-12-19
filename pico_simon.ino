@@ -40,7 +40,10 @@ void setup()
       ; // Don't proceed, loop forever
   }
 
-  displayMessage("Simão diz");
+  display.setTextSize(2); // Draw 2X-scale text
+  display.setTextColor(SSD1306_WHITE);
+
+  displayMessage("Simao diz");
   delay(2000);
 }
 
@@ -96,6 +99,15 @@ void loop()
       {
         GameState++;
         if (GameState > NUMGAME(GameTitle))
+        {
+          GameState = 1;
+        }
+      }
+      // Change game with Yellow button
+      if (digitalRead(YEL_BTN) == LOW)
+      {
+        GameState--;
+        if (GameState < 1)
         {
           GameState = 1;
         }
