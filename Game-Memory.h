@@ -20,12 +20,8 @@ void MemoryGame()
     // Change Spped via Interval
     if ((GameLevel % 5 == 0) && (GameLevel <= 30))
     {
-      interval = interval - (GameLevel / 5) * 30;
+      interval = interval - (GameLevel / 5) * 50;
     }
-
-    displayMessage(" Ouve a musica  ");
-
-    delay(2000);
 
     // Generate Melody
     randomSeed(GameRand); // Get Current Random Series
@@ -53,22 +49,7 @@ void MemoryGame()
       a = 0;
       while (a == 0)
       {
-        if (digitalRead(GRN_BTN) == LOW)
-        {
-          a = GRN_LED;
-        }
-        if (digitalRead(RED_BTN) == LOW)
-        {
-          a = RED_LED;
-        }
-        if (digitalRead(YEL_BTN) == LOW)
-        {
-          a = YEL_LED;
-        }
-        if (digitalRead(BLU_BTN) == LOW)
-        {
-          a = BLU_LED;
-        }
+        a = getPressedButton();
       }
       // Play Color if Press Button
       if (a != 0)
@@ -87,6 +68,7 @@ void MemoryGame()
       if ((a != 0) && (a != pin_leds[CurrColor]))
       {
         GameOver = true;
+        tone(PIEZO, BAD_SOUND, 500);
         displayMessage(F(" OHH :( "));
       }
 

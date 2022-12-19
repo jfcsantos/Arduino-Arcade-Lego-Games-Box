@@ -60,3 +60,30 @@ void PlayColor(byte LED_color)
 
   tone(PIEZO, note, 100);
 }
+
+int getPressedButton()
+{
+
+  if (digitalRead(RED_BTN) == LOW && digitalRead(YEL_BTN) == LOW)
+  {
+    return -1;
+  }
+  if (digitalRead(GRN_BTN) == LOW)
+  {
+    return GRN_LED;
+  }
+  if (digitalRead(RED_BTN) == LOW)
+  {
+    return RED_LED;
+  }
+  if (digitalRead(YEL_BTN) == LOW)
+  {
+    return YEL_LED;
+  }
+  if (digitalRead(BLU_BTN) == LOW)
+  {
+    return BLU_LED;
+  }
+
+  return 0;
+}

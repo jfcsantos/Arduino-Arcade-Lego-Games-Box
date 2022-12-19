@@ -42,23 +42,15 @@ void ReactionGame()
 
       if (a == 0)
       { // Get Button Status
-        if (digitalRead(GRN_BTN) == LOW)
+        a = getPressedButton();
+
+        if (a == -1)
         {
-          a = GRN_LED;
+          CloseGame();
+          return;
         }
-        if (digitalRead(RED_BTN) == LOW)
-        {
-          a = RED_LED;
-        }
-        if (digitalRead(YEL_BTN) == LOW)
-        {
-          a = YEL_LED;
-        }
-        if (digitalRead(BLU_BTN) == LOW)
-        {
-          a = BLU_LED;
-        }
-        if (a != 0)
+
+        if (a > 0)
         {
           break;
         }
@@ -71,6 +63,7 @@ void ReactionGame()
     {
       GameOver = true;
       displayMessage(F(" OHH :( "));
+      tone(PIEZO, BAD_SOUND, 500);
     }
     if (a == pin_leds[CurrColor])
     {
