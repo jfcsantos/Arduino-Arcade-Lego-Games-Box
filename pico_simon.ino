@@ -44,11 +44,22 @@ void setup()
   display.setTextColor(SSD1306_WHITE);
 
   displayMessage("Simao diz");
+  int count = 0;
+  while (count < 10)
+  {
+    // Flash the LEDs in sequence
+    for (int i = RED_LED; i >= BLU_LED; i--)
+    {
+      digitalWrite(i, HIGH);
+      delay(100);
+      digitalWrite(i, LOW);
+    }
+    count++;
+  }
   delay(2000);
 }
 
 ///////////////// Main Loop ///////////////////////////
-
 void loop()
 {
 
@@ -56,27 +67,17 @@ void loop()
   switch (GameState)
   {
   case 0:
+  {
+    unsigned long previousMillis = 0; // will store last time guide message was played
+    int msgCount = 0;
+    bool showGuide = true;
     GameState = GameType;
-
-    if (firstPlay)
-    {
-      firstPlay = false;
-      displayMessage("Azul: muda jogo");
-      delay(2000);
-      displayMessage("Verde: jogar");
-      delay(2000);
-      displayMessage("Vermelho: som on/off ");
-      delay(2000);
-    }
 
     while (digitalRead(GRN_BTN) == HIGH)
     {
-      // Flash the LEDs in sequence
-      for (int i = RED_LED; i >= BLU_LED; i--)
+      if (digitalRead(GRN_BTN) == LOW || digitalRead(YEL_BTN) == LOW || digitalRead(RED_BTN) == LOW || digitalRead(BLU_BTN) == LOW)
       {
-        digitalWrite(i, HIGH);
-        delay(100);
-        digitalWrite(i, LOW);
+        showGuide = false;
       }
 
       // Sound OFF/ON
@@ -98,7 +99,7 @@ void loop()
       if (digitalRead(BLU_BTN) == LOW)
       {
         GameState++;
-        if (GameState > NUMGAME(GameTitle))
+        if (GameState > ARRCOUNT(GameTitle))
         {
           GameState = 1;
         }
@@ -109,12 +110,37 @@ void loop()
         GameState--;
         if (GameState < 1)
         {
-          GameState = 1;
+          GameState = ARRCOUNT(GameTitle);
         }
       }
-      displayMessage(GameTitle[GameState - 1]);
+
+      if (showGuide)
+      {
+        // check to see if it's time to blink the LED; that is, if the difference
+        // between the current time and last time you blinked the LED is bigger than
+        // the interval at which you want to blink the LED.
+        unsigned long currentMillis = millis();
+
+        if (currentMillis - previousMillis >= 2000)
+        {
+          // save the last time you blinked the LED
+          previousMillis = currentMillis;
+
+          displayMessage(GuideMsg[msgCount]);
+          msgCount++;
+          if (msgCount >= ARRCOUNT(GuideMsg))
+          {
+            msgCount = 0;
+          }
+        }
+      }
+      else
+      {
+        displayMessage(GameTitle[GameState - 1]);
+      }
     }
     break;
+  }
   case 1: // Memory game
     MemoryGame();
     break;

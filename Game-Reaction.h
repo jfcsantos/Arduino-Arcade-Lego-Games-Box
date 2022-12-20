@@ -62,7 +62,7 @@ void ReactionGame()
     if ((a != 0) && (a != pin_leds[CurrColor]))
     {
       GameOver = true;
-      displayMessage(F(" Ohh :( "));
+      displayMessage(F("Ohh :( "));
       if (GameSound)
       {
         tone(PIEZO, BAD_SOUND, 500);
@@ -76,7 +76,7 @@ void ReactionGame()
     else if (a == 0)
     {
       GameOver = true;
-      displayMessage(F(" Tenta outra vez! "));
+      displayMessage(F("Tenta outra vez!"));
       if (GameSound)
       {
         tone(PIEZO, BAD_SOUND, 500);
@@ -93,8 +93,30 @@ void ReactionGame()
   // Show Final Score
   displayMessage(F("Resultado final: "));
   displayMessage(GameScore, false);
-
   delay(3000);
-  CloseGame();
+
+  bool replayPrompt = false;
+  displayMessage("Outra vez?");
+  SetButtonLED(pin_leds[GRN_LED]);
+  SetButtonLED(pin_leds[RED_LED]);
+  delay(2000);
+  while (!replayPrompt)
+  {
+    a = getPressedButton();
+    if (a == GRN_LED)
+    {
+      GameOver = false;
+      replayPrompt = true;
+    }
+    if (a == RED_LED)
+    {
+      replayPrompt = true;
+    }
+  }
+  PowerOffButtonLED();
+  if (GameOver)
+  {
+    CloseGame();
+  }
   return;
 }

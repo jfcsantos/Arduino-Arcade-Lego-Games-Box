@@ -38,14 +38,14 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 byte GameState = 0;
 byte GameType = 1;
 bool GameSound = true;
-int firstPlay = true;
 int GameLevel = 0;
 unsigned int GameRand = 777;
 
-String GameTitle[] = {"Memoria", "Reage", "Torneio", "Musica"};
+String GameTitle[] = {"Memoria", "Tempo", "Torneio", "Musica"};
+String GuideMsg[] = {"Azul: muda jogo >", "Amarelo: muda jogo <", "Verde: jogar", "Vermelho: som on/off"};
 
 // number of items in an array
-#define NUMGAME(arg) ((unsigned int)(sizeof(arg) / sizeof(arg[0])))
+#define ARRCOUNT(arg) ((unsigned int)(sizeof(arg) / sizeof(arg[0])))
 
 // Define the order of the pins in the display so that they are ordered according to the universal convention [OPTIONAL]
 byte pin_leds[4] = {YEL_LED, GRN_LED, RED_LED, BLU_LED};

@@ -5,7 +5,7 @@ void MelodyGame()
 
   GameType = 4;
   // Welcome
-  displayMessage(F("  Vai maestro  "));
+  displayMessage(F("Vai maestro"));
   PowerOffButtonLED();
   delay(1000);
   while (!GameOver) // BLACK button press
