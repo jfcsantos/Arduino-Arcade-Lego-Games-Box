@@ -187,13 +187,13 @@ void displayMessage(String text, bool clearDisplay = true)
   display.display();     // Show text
 }
 
-void drawProgressbar(int x, int y, int width, int height, int progress)
+void drawProgressbar(int x, int y, int progress)
 {
   progress = progress > 100 ? 100 : progress; // set the progress value to 100
   progress = progress < 0 ? 0 : progress;     // start the counting to 0-100
-  float bar = ((float)(width - 1) / 100) * progress;
-  display.drawRect(x, y, width, height, WHITE);
-  display.fillRect(x + 2, y + 2, bar, height - 4, WHITE); // initailize the graphics fillRect(int x, int y, int width, int height)
+  float bar = ((float)(SCREEN_WIDTH - 1) / 100) * progress;
+  display.drawRect(x, y, SCREEN_WIDTH, 10, WHITE);
+  display.fillRect(x + 2, y + 2, bar, 10 - 4, WHITE); // initailize the graphics fillRect(int x, int y, int width, int height)
 }
 
 // Set Default Values

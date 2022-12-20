@@ -72,12 +72,34 @@ void loop()
     bool showGuide = true;
     GameState = GameType;
 
-    while (digitalRead(GRN_BTN) == HIGH)
+    while (showGuide)
     {
       if (showGuide && (digitalRead(GRN_BTN) == LOW || digitalRead(YEL_BTN) == LOW || digitalRead(RED_BTN) == LOW || digitalRead(BLU_BTN) == LOW))
       {
         showGuide = false;
+        delay(1000);
       }
+      // check to see if it's time to cycle the guide message; that is, if the difference
+      // between the current time and last time you showed a message is bigger than
+      // the interval at which you want to show a message.
+      unsigned long currentMillis = millis();
+
+      if (currentMillis - previousMillis >= 2000)
+      {
+        // save the last time you showed
+        previousMillis = currentMillis;
+
+        displayMessage(GuideMsg[msgCount]);
+        msgCount++;
+        if (msgCount >= ARRCOUNT(GuideMsg))
+        {
+          msgCount = 0;
+        }
+      }
+    }
+
+    while (digitalRead(GRN_BTN) == HIGH)
+    {
 
       // Sound OFF/ON
       if (digitalRead(RED_BTN) == LOW)
@@ -115,30 +137,7 @@ void loop()
         delay(500);
       }
 
-      if (!showGuide)
-      {
-        displayMessage(GameTitle[GameState - 1]);
-      }
-      else
-      {
-        // check to see if it's time to cycle the guide message; that is, if the difference
-        // between the current time and last time you showed a message is bigger than
-        // the interval at which you want to show a message.
-        unsigned long currentMillis = millis();
-
-        if (currentMillis - previousMillis >= 2000)
-        {
-          // save the last time you showed
-          previousMillis = currentMillis;
-
-          displayMessage(GuideMsg[msgCount]);
-          msgCount++;
-          if (msgCount >= ARRCOUNT(GuideMsg))
-          {
-            msgCount = 0;
-          }
-        }
-      }
+      displayMessage(GameTitle[GameState - 1]);
     }
     break;
   }

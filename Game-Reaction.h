@@ -33,8 +33,9 @@ void ReactionGame()
       // // Fill Line
       if ((currentMillis - previousMillis) % (interval / 16) == 0)
       {
-        progress = (progress + 10) % 110;
-        drawProgressbar(0, 20, 110, 10, progress); // declare the graphics fillrect(int x, int y, int width, int height)
+        progress = (progress + 10);
+        displayMessage("Tempo: ");
+        drawProgressbar(0, 20, progress); // declare the graphics fillrect(int x, int y, int width, int height)
         display.display();
 
         delay(10);
@@ -46,8 +47,7 @@ void ReactionGame()
 
         if (a == -1)
         {
-          CloseGame();
-          return;
+          GameOver = true;
         }
 
         if (a > 0)
@@ -71,7 +71,20 @@ void ReactionGame()
     if (a == pin_leds[CurrColor])
     {
       GameScore++;
-      interval = interval - 100;
+      if (interval < 1000)
+      {
+        interval = interval - 20;
+      }
+      if (interval < 500)
+      {
+        interval = interval - 10;
+      }
+
+      else
+      {
+
+        interval = interval - 100;
+      }
     }
     else if (a == 0)
     {
@@ -100,8 +113,8 @@ void ReactionGame()
   if (GameOver)
   {
     displayMessage(F(" Adeus "));
+    delay(1000);
     CloseGame();
-    delay(2000);
   }
   else
   {
