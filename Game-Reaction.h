@@ -83,6 +83,7 @@ void ReactionGame()
       }
     }
 
+    PowerOffButtonLED();
     delay(1000);
     //  Show Current Score
     displayMessage(F("Resultado: "));
@@ -95,28 +96,17 @@ void ReactionGame()
   displayMessage(GameScore, false);
   delay(3000);
 
-  bool replayPrompt = false;
-  displayMessage("Outra vez?");
-  SetButtonLED(pin_leds[GRN_LED]);
-  SetButtonLED(pin_leds[RED_LED]);
-  delay(2000);
-  while (!replayPrompt)
-  {
-    a = getPressedButton();
-    if (a == GRN_LED)
-    {
-      GameOver = false;
-      replayPrompt = true;
-    }
-    if (a == RED_LED)
-    {
-      replayPrompt = true;
-    }
-  }
-  PowerOffButtonLED();
+  GameOver = shouldReplay();
   if (GameOver)
   {
+    displayMessage(F(" Adeus "));
     CloseGame();
+    delay(2000);
+  }
+  else
+  {
+    displayMessage(F(" Vamos la! "));
+    delay(1000);
   }
   return;
 }

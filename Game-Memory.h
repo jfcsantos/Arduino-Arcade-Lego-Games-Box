@@ -91,8 +91,19 @@ void MemoryGame()
 
   displayMessage(F("Resultado: "));
   displayMessage(GameLevel, false);
-
   delay(3000);
-  CloseGame();
+
+  GameOver = shouldReplay();
+  if (GameOver)
+  {
+    displayMessage(F(" Adeus "));
+    CloseGame();
+    delay(2000);
+  }
+  else
+  {
+    displayMessage(F(" Vamos la! "));
+    delay(1000);
+  }
   return;
 }

@@ -2,20 +2,24 @@ void TournamentGame()
 {
   GameType = 3;
   GameLevel = 0;
+  bool GameOver = false;
   int GameRate[4] = {0, 0, 0, 0};
   int interval = 5000;
   unsigned long previousMillis = 0;
   unsigned long currentMillis = 0;
 
-  while (GameLevel < 5)
+  while (!GameOver && GameLevel < 5)
   {
     GameLevel++;
 
     // Init state
     PowerOffButtonLED();
 
-    displayMessage(F("Quem vai mais rapido?"));
-    delay(2000);
+    if (GameLevel == 0)
+    {
+      displayMessage(F("Quem vai mais rapido?"));
+      delay(2000);
+    }
     if (GameLevel == 5)
     {
       displayMessage(F("Ultima ronda..."));
@@ -42,8 +46,7 @@ void TournamentGame()
 
     if ((currentMillis - previousMillis) > interval)
     {
-      CloseGame();
-      return;
+      GameOver = true;
     }
 
     // Play Color if Press Button
@@ -100,5 +103,19 @@ void TournamentGame()
   PowerOnButtonLED();
   delay(3000);
   PowerOffButtonLED();
-  CloseGame();
+
+  GameOver = shouldReplay();
+  if (GameOver)
+  {
+    displayMessage(F(" Adeus "));
+    CloseGame();
+    delay(2000);
+  }
+  else
+  {
+    GameLevel = 0;
+    displayMessage(F(" Vamos la! "));
+    delay(1000);
+  }
+  return;
 }

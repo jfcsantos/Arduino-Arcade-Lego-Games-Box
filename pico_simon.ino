@@ -4,7 +4,6 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include "Game-Settings.h"
-#include "LED-Functions.h"
 #include "Game-Memory.h"
 #include "Game-Reaction.h"
 #include "Game-Melody.h"
@@ -75,7 +74,7 @@ void loop()
 
     while (digitalRead(GRN_BTN) == HIGH)
     {
-      if (digitalRead(GRN_BTN) == LOW || digitalRead(YEL_BTN) == LOW || digitalRead(RED_BTN) == LOW || digitalRead(BLU_BTN) == LOW)
+      if (showGuide && (digitalRead(GRN_BTN) == LOW || digitalRead(YEL_BTN) == LOW || digitalRead(RED_BTN) == LOW || digitalRead(BLU_BTN) == LOW))
       {
         showGuide = false;
       }
@@ -103,6 +102,7 @@ void loop()
         {
           GameState = 1;
         }
+        delay(500);
       }
       // Change game with Yellow button
       if (digitalRead(YEL_BTN) == LOW)
@@ -112,18 +112,23 @@ void loop()
         {
           GameState = ARRCOUNT(GameTitle);
         }
+        delay(500);
       }
 
-      if (showGuide)
+      if (!showGuide)
       {
-        // check to see if it's time to blink the LED; that is, if the difference
-        // between the current time and last time you blinked the LED is bigger than
-        // the interval at which you want to blink the LED.
+        displayMessage(GameTitle[GameState - 1]);
+      }
+      else
+      {
+        // check to see if it's time to cycle the guide message; that is, if the difference
+        // between the current time and last time you showed a message is bigger than
+        // the interval at which you want to show a message.
         unsigned long currentMillis = millis();
 
         if (currentMillis - previousMillis >= 2000)
         {
-          // save the last time you blinked the LED
+          // save the last time you showed
           previousMillis = currentMillis;
 
           displayMessage(GuideMsg[msgCount]);
@@ -133,10 +138,6 @@ void loop()
             msgCount = 0;
           }
         }
-      }
-      else
-      {
-        displayMessage(GameTitle[GameState - 1]);
       }
     }
     break;
